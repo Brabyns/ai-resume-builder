@@ -1,43 +1,40 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter, Route, RouterProvider } from 'react-router-dom'
-import SignInPage from './auth/sign-in'
-import path from 'node:path'
-import Home from './home'
-import Dashboard from './dashboard'
-import { ClerkProvider } from '@clerk/clerk-react'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
+import SignInPage from "./auth/sign-in";
+import path from "node:path";
+import Home from "./home";
+import Dashboard from "./dashboard";
+import { ClerkProvider } from "@clerk/clerk-react";
 
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 const router = createBrowserRouter([
   {
-    
     element: <App />,
-    children:[
+    children: [
       {
-        path:'/', 
-        element: <Home />
+        path: "/dashboard",
+        element: <Dashboard />,
       },
-      {
-        path:'/dashboard',
-        element: <Dashboard />
-      }
-    ]
+    ],
   },
   {
-    path:'/auth/sign-in',
-    element: <SignInPage />
-  }
-])
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/auth/sign-in",
+    element: <SignInPage />,
+  },
+]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-    <RouterProvider router={router} />
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+      <RouterProvider router={router} />
     </ClerkProvider>
   </StrictMode>,
-)
+);
